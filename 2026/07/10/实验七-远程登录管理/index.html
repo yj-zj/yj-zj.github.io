@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yj-zj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、实验目的 安装和配置OpenSSH服务，实现多机远程登录管理； 配置SSH密钥认证，实现免密登录； 掌握使用SCP和rsync进行跨机文件传输与同步。  二、实验环境 操作系统：Ubuntu Server 22.04 LTS 网络：所有虚拟机处于同一Host-Only网络（192.168.56.0&#x2F;24） 前置条件：已完成实验五，拥有至少两台Ubuntu虚拟机  三、实验过程步骤一：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实验七 远程登录管理">
+<meta property="og:url" content="https://yj-zj.github.io/2026/07/10/%E5%AE%9E%E9%AA%8C%E4%B8%83-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="next">
+<meta property="og:description" content="一、实验目的 安装和配置OpenSSH服务，实现多机远程登录管理； 配置SSH密钥认证，实现免密登录； 掌握使用SCP和rsync进行跨机文件传输与同步。  二、实验环境 操作系统：Ubuntu Server 22.04 LTS 网络：所有虚拟机处于同一Host-Only网络（192.168.56.0&#x2F;24） 前置条件：已完成实验五，拥有至少两台Ubuntu虚拟机  三、实验过程步骤一：">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-15-08-50.png">
+<meta property="og:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-15-39-07.png">
+<meta property="og:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-16-12-41.png">
+<meta property="og:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-16-17-06.png">
+<meta property="og:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-16-18-20.png">
+<meta property="og:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-16-29-31.png">
+<meta property="og:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-16-33-59.png">
+<meta property="og:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-16-36-42.png">
+<meta property="og:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-16-40-59.png">
+<meta property="og:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-16-49-05.png">
+<meta property="og:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-16-53-10.png">
+<meta property="article:published_time" content="2026-07-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-11T17:16:06.929Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="SSH">
+<meta property="article:tag" content="远程登录">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-15-08-50.png">
+
+<link rel="canonical" href="https://yj-zj.github.io/2026/07/10/%E5%AE%9E%E9%AA%8C%E4%B8%83-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%AE%A1%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>实验七 远程登录管理 | next</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">next</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/10/%E5%AE%9E%E9%AA%8C%E4%B8%83-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="next">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          实验七 远程登录管理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-10 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-10T00:00:00+08:00">2026-07-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-07-12 01:16:06" itemprop="dateModified" datetime="2026-07-12T01:16:06+08:00">2026-07-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" itemprop="url" rel="index"><span itemprop="name">实验报告</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h2><ol>
+<li>安装和配置OpenSSH服务，实现多机远程登录管理；</li>
+<li>配置SSH密钥认证，实现免密登录；</li>
+<li>掌握使用SCP和rsync进行跨机文件传输与同步。</li>
+</ol>
+<h2 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h2><ul>
+<li>操作系统：Ubuntu Server 22.04 LTS</li>
+<li>网络：所有虚拟机处于同一Host-Only网络（192.168.56.0&#x2F;24）</li>
+<li>前置条件：已完成实验五，拥有至少两台Ubuntu虚拟机</li>
+</ul>
+<h2 id="三、实验过程"><a href="#三、实验过程" class="headerlink" title="三、实验过程"></a>三、实验过程</h2><h3 id="步骤一：查看SSH服务运行状态"><a href="#步骤一：查看SSH服务运行状态" class="headerlink" title="步骤一：查看SSH服务运行状态"></a>步骤一：查看SSH服务运行状态</h3><p><img src="/images/experiment7/2026-07-10-15-08-50.png" alt="SSH状态"></p>
+<h3 id="步骤二：配置sshd-config"><a href="#步骤二：配置sshd-config" class="headerlink" title="步骤二：配置sshd_config"></a>步骤二：配置sshd_config</h3><p><img src="/images/experiment7/2026-07-10-15-39-07.png" alt="SSH配置"></p>
+<h3 id="步骤三：生成SSH密钥对"><a href="#步骤三：生成SSH密钥对" class="headerlink" title="步骤三：生成SSH密钥对"></a>步骤三：生成SSH密钥对</h3><p><img src="/images/experiment7/2026-07-10-16-12-41.png" alt="生成密钥"></p>
+<h3 id="步骤四：推送公钥实现免密登录"><a href="#步骤四：推送公钥实现免密登录" class="headerlink" title="步骤四：推送公钥实现免密登录"></a>步骤四：推送公钥实现免密登录</h3><p><img src="/images/experiment7/2026-07-10-16-17-06.png" alt="推送公钥"></p>
+<h3 id="步骤五：测试免密登录"><a href="#步骤五：测试免密登录" class="headerlink" title="步骤五：测试免密登录"></a>步骤五：测试免密登录</h3><p><img src="/images/experiment7/2026-07-10-16-18-20.png" alt="免密登录"></p>
+<h3 id="步骤六：SCP文件传输"><a href="#步骤六：SCP文件传输" class="headerlink" title="步骤六：SCP文件传输"></a>步骤六：SCP文件传输</h3><p><img src="/images/experiment7/2026-07-10-16-29-31.png" alt="SCP上传"></p>
+<p><img src="/images/experiment7/2026-07-10-16-33-59.png" alt="SCP下载"></p>
+<h3 id="步骤七：rsync增量同步"><a href="#步骤七：rsync增量同步" class="headerlink" title="步骤七：rsync增量同步"></a>步骤七：rsync增量同步</h3><p><img src="/images/experiment7/2026-07-10-16-36-42.png" alt="安装rsync"></p>
+<p><img src="/images/experiment7/2026-07-10-16-40-59.png" alt="本地同步"></p>
+<p><img src="/images/experiment7/2026-07-10-16-49-05.png" alt="远程推送"></p>
+<p><img src="/images/experiment7/2026-07-10-16-53-10.png" alt="严格同步"></p>
+<h2 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h2><ol>
+<li>完成OpenSSH服务部署，关闭root远程登录提升安全性；</li>
+<li>实现ED25519加密密钥免密登录；</li>
+<li>熟练使用SCP和rsync完成文件传输与增量同步。</li>
+</ol>
+<h2 id="五、知识总结"><a href="#五、知识总结" class="headerlink" title="五、知识总结"></a>五、知识总结</h2><h3 id="SSH认证方式对比"><a href="#SSH认证方式对比" class="headerlink" title="SSH认证方式对比"></a>SSH认证方式对比</h3><table>
+<thead>
+<tr>
+<th>认证方式</th>
+<th>原理</th>
+<th>安全等级</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>密码认证</td>
+<td>输入账号密码</td>
+<td>较低</td>
+<td>临时测试</td>
+</tr>
+<tr>
+<td>密钥认证</td>
+<td>公私钥配对</td>
+<td>高</td>
+<td>日常运维、自动化脚本</td>
+</tr>
+</tbody></table>
+<h3 id="SCP与rsync对比"><a href="#SCP与rsync对比" class="headerlink" title="SCP与rsync对比"></a>SCP与rsync对比</h3><table>
+<thead>
+<tr>
+<th>工具</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SCP</td>
+<td>完整覆盖传输</td>
+<td>少量文件一次性传输</td>
+</tr>
+<tr>
+<td>rsync</td>
+<td>增量同步，支持删除冗余</td>
+<td>大型目录定时备份</td>
+</tr>
+</tbody></table>
+<h2 id="六、出现问题"><a href="#六、出现问题" class="headerlink" title="六、出现问题"></a>六、出现问题</h2><ol>
+<li>rsync远程同步报错 → 远程服务器安装rsync</li>
+<li>SSH连接Connection refused → 启动openssh-server服务</li>
+</ol>
+<h2 id="七、心得体会"><a href="#七、心得体会" class="headerlink" title="七、心得体会"></a>七、心得体会</h2><p>掌握SSH远程登录运维技术，理解密钥加密相比密码登录的安全优势。SSH是开源安全协议，国内麒麟、统信系统均内置OpenSSH工具。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SSH/" rel="tag"># SSH</a>
+              <a href="/tags/%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" rel="tag"># 远程登录</a>
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/07/10/%E5%AE%9E%E9%AA%8C%E5%85%AB-%E8%BD%AF%E4%BB%B6%E7%BB%BC%E5%90%88%E9%83%A8%E7%BD%B2/" rel="prev" title="实验八 软件综合部署">
+      <i class="fa fa-chevron-left"></i> 实验八 软件综合部署
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="nav-number">1.</span> <span class="nav-text">一、实验目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">二、实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%9E%E9%AA%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">三、实验过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%80%EF%BC%9A%E6%9F%A5%E7%9C%8BSSH%E6%9C%8D%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81"><span class="nav-number">3.1.</span> <span class="nav-text">步骤一：查看SSH服务运行状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%8C%EF%BC%9A%E9%85%8D%E7%BD%AEsshd-config"><span class="nav-number">3.2.</span> <span class="nav-text">步骤二：配置sshd_config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%89%EF%BC%9A%E7%94%9F%E6%88%90SSH%E5%AF%86%E9%92%A5%E5%AF%B9"><span class="nav-number">3.3.</span> <span class="nav-text">步骤三：生成SSH密钥对</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E5%9B%9B%EF%BC%9A%E6%8E%A8%E9%80%81%E5%85%AC%E9%92%A5%E5%AE%9E%E7%8E%B0%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="nav-number">3.4.</span> <span class="nav-text">步骤四：推送公钥实现免密登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%94%EF%BC%9A%E6%B5%8B%E8%AF%95%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="nav-number">3.5.</span> <span class="nav-text">步骤五：测试免密登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E5%85%AD%EF%BC%9ASCP%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93"><span class="nav-number">3.6.</span> <span class="nav-text">步骤六：SCP文件传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%83%EF%BC%9Arsync%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5"><span class="nav-number">3.7.</span> <span class="nav-text">步骤七：rsync增量同步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">四、实验结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">五、知识总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSH%E8%AE%A4%E8%AF%81%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%AF%94"><span class="nav-number">5.1.</span> <span class="nav-text">SSH认证方式对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SCP%E4%B8%8Ersync%E5%AF%B9%E6%AF%94"><span class="nav-number">5.2.</span> <span class="nav-text">SCP与rsync对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">六、出现问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A"><span class="nav-number">7.</span> <span class="nav-text">七、心得体会</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
