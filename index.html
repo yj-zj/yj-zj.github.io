@@ -145,454 +145,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/10/%E5%AE%9E%E9%AA%8C%E4%B8%83-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%AE%A1%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="next">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/07/10/%E5%AE%9E%E9%AA%8C%E4%B8%83-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">实验七 远程登录管理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2026-07-10 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-10T00:00:00+08:00">2026-07-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-07-12 01:16:06" itemprop="dateModified" datetime="2026-07-12T01:16:06+08:00">2026-07-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" itemprop="url" rel="index"><span itemprop="name">实验报告</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h2><ol>
-<li>安装和配置OpenSSH服务，实现多机远程登录管理；</li>
-<li>配置SSH密钥认证，实现免密登录；</li>
-<li>掌握使用SCP和rsync进行跨机文件传输与同步。</li>
-</ol>
-<h2 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h2><ul>
-<li>操作系统：Ubuntu Server 22.04 LTS</li>
-<li>网络：所有虚拟机处于同一Host-Only网络（192.168.56.0&#x2F;24）</li>
-<li>前置条件：已完成实验五，拥有至少两台Ubuntu虚拟机</li>
-</ul>
-<h2 id="三、实验过程"><a href="#三、实验过程" class="headerlink" title="三、实验过程"></a>三、实验过程</h2><h3 id="步骤一：查看SSH服务运行状态"><a href="#步骤一：查看SSH服务运行状态" class="headerlink" title="步骤一：查看SSH服务运行状态"></a>步骤一：查看SSH服务运行状态</h3><p><img src="/images/experiment7/2026-07-10-15-08-50.png" alt="SSH状态"></p>
-<h3 id="步骤二：配置sshd-config"><a href="#步骤二：配置sshd-config" class="headerlink" title="步骤二：配置sshd_config"></a>步骤二：配置sshd_config</h3><p><img src="/images/experiment7/2026-07-10-15-39-07.png" alt="SSH配置"></p>
-<h3 id="步骤三：生成SSH密钥对"><a href="#步骤三：生成SSH密钥对" class="headerlink" title="步骤三：生成SSH密钥对"></a>步骤三：生成SSH密钥对</h3><p><img src="/images/experiment7/2026-07-10-16-12-41.png" alt="生成密钥"></p>
-<h3 id="步骤四：推送公钥实现免密登录"><a href="#步骤四：推送公钥实现免密登录" class="headerlink" title="步骤四：推送公钥实现免密登录"></a>步骤四：推送公钥实现免密登录</h3><p><img src="/images/experiment7/2026-07-10-16-17-06.png" alt="推送公钥"></p>
-<h3 id="步骤五：测试免密登录"><a href="#步骤五：测试免密登录" class="headerlink" title="步骤五：测试免密登录"></a>步骤五：测试免密登录</h3><p><img src="/images/experiment7/2026-07-10-16-18-20.png" alt="免密登录"></p>
-<h3 id="步骤六：SCP文件传输"><a href="#步骤六：SCP文件传输" class="headerlink" title="步骤六：SCP文件传输"></a>步骤六：SCP文件传输</h3><p><img src="/images/experiment7/2026-07-10-16-29-31.png" alt="SCP上传"></p>
-<p><img src="/images/experiment7/2026-07-10-16-33-59.png" alt="SCP下载"></p>
-<h3 id="步骤七：rsync增量同步"><a href="#步骤七：rsync增量同步" class="headerlink" title="步骤七：rsync增量同步"></a>步骤七：rsync增量同步</h3><p><img src="/images/experiment7/2026-07-10-16-36-42.png" alt="安装rsync"></p>
-<p><img src="/images/experiment7/2026-07-10-16-40-59.png" alt="本地同步"></p>
-<p><img src="/images/experiment7/2026-07-10-16-49-05.png" alt="远程推送"></p>
-<p><img src="/images/experiment7/2026-07-10-16-53-10.png" alt="严格同步"></p>
-<h2 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h2><ol>
-<li>完成OpenSSH服务部署，关闭root远程登录提升安全性；</li>
-<li>实现ED25519加密密钥免密登录；</li>
-<li>熟练使用SCP和rsync完成文件传输与增量同步。</li>
-</ol>
-<h2 id="五、知识总结"><a href="#五、知识总结" class="headerlink" title="五、知识总结"></a>五、知识总结</h2><h3 id="SSH认证方式对比"><a href="#SSH认证方式对比" class="headerlink" title="SSH认证方式对比"></a>SSH认证方式对比</h3><table>
-<thead>
-<tr>
-<th>认证方式</th>
-<th>原理</th>
-<th>安全等级</th>
-<th>适用场景</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>密码认证</td>
-<td>输入账号密码</td>
-<td>较低</td>
-<td>临时测试</td>
-</tr>
-<tr>
-<td>密钥认证</td>
-<td>公私钥配对</td>
-<td>高</td>
-<td>日常运维、自动化脚本</td>
-</tr>
-</tbody></table>
-<h3 id="SCP与rsync对比"><a href="#SCP与rsync对比" class="headerlink" title="SCP与rsync对比"></a>SCP与rsync对比</h3><table>
-<thead>
-<tr>
-<th>工具</th>
-<th>特点</th>
-<th>适用场景</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>SCP</td>
-<td>完整覆盖传输</td>
-<td>少量文件一次性传输</td>
-</tr>
-<tr>
-<td>rsync</td>
-<td>增量同步，支持删除冗余</td>
-<td>大型目录定时备份</td>
-</tr>
-</tbody></table>
-<h2 id="六、出现问题"><a href="#六、出现问题" class="headerlink" title="六、出现问题"></a>六、出现问题</h2><ol>
-<li>rsync远程同步报错 → 远程服务器安装rsync</li>
-<li>SSH连接Connection refused → 启动openssh-server服务</li>
-</ol>
-<h2 id="七、心得体会"><a href="#七、心得体会" class="headerlink" title="七、心得体会"></a>七、心得体会</h2><p>掌握SSH远程登录运维技术，理解密钥加密相比密码登录的安全优势。SSH是开源安全协议，国内麒麟、统信系统均内置OpenSSH工具。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/10/%E5%AE%9E%E9%AA%8C%E5%85%AB-%E8%BD%AF%E4%BB%B6%E7%BB%BC%E5%90%88%E9%83%A8%E7%BD%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="next">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/07/10/%E5%AE%9E%E9%AA%8C%E5%85%AB-%E8%BD%AF%E4%BB%B6%E7%BB%BC%E5%90%88%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">实验八 软件综合部署</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2026-07-10 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-10T00:00:00+08:00">2026-07-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-07-12 01:16:14" itemprop="dateModified" datetime="2026-07-12T01:16:14+08:00">2026-07-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" itemprop="url" rel="index"><span itemprop="name">实验报告</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h2><ol>
-<li>综合运用前七个实验所学的各类工具；</li>
-<li>构建和模拟一个完整的网络环境；</li>
-<li>完整体验Web静态站点从开发到部署的全过程；</li>
-<li>掌握自动化部署（CI&#x2F;CD）的基本概念与实践方法。</li>
-</ol>
-<h2 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h2><ul>
-<li>操作系统：Windows 10&#x2F;11 + Ubuntu Server 22.04（虚拟机）</li>
-<li>前置条件：已完成实验二、三、四、五、七</li>
-<li>所需账号：GitHub账号</li>
-</ul>
-<h2 id="三、实验过程"><a href="#三、实验过程" class="headerlink" title="三、实验过程"></a>三、实验过程</h2><h3 id="第一部分：GitHub-Pages-Actions自动部署"><a href="#第一部分：GitHub-Pages-Actions自动部署" class="headerlink" title="第一部分：GitHub Pages + Actions自动部署"></a>第一部分：GitHub Pages + Actions自动部署</h3><h4 id="步骤一：本地Hexo项目校验"><a href="#步骤一：本地Hexo项目校验" class="headerlink" title="步骤一：本地Hexo项目校验"></a>步骤一：本地Hexo项目校验</h4><p><img src="/images/experiment8/2026-07-10-20-12-24.png" alt="启动服务"></p>
-<h4 id="步骤二：关联远程仓库并推送"><a href="#步骤二：关联远程仓库并推送" class="headerlink" title="步骤二：关联远程仓库并推送"></a>步骤二：关联远程仓库并推送</h4><p><img src="/images/experiment8/2026-07-10-20-19-00.png" alt="Git推送"></p>
-<p><img src="/images/experiment8/2026-07-10-20-29-17.png" alt="推送成功"></p>
-<h4 id="步骤三：配置GitHub-Actions工作流"><a href="#步骤三：配置GitHub-Actions工作流" class="headerlink" title="步骤三：配置GitHub Actions工作流"></a>步骤三：配置GitHub Actions工作流</h4><p><img src="/images/experiment8/2026-07-10-23-31-36.png" alt="工作流配置"></p>
-<h4 id="步骤四：访问线上站点"><a href="#步骤四：访问线上站点" class="headerlink" title="步骤四：访问线上站点"></a>步骤四：访问线上站点</h4><h3 id="第二部分：Linux-Nginx手动部署"><a href="#第二部分：Linux-Nginx手动部署" class="headerlink" title="第二部分：Linux Nginx手动部署"></a>第二部分：Linux Nginx手动部署</h3><h4 id="步骤五：安装Nginx"><a href="#步骤五：安装Nginx" class="headerlink" title="步骤五：安装Nginx"></a>步骤五：安装Nginx</h4><p><img src="/images/experiment8/2026-07-10-23-46-56.png" alt="安装Nginx"></p>
-<h4 id="步骤六：配置Nginx站点"><a href="#步骤六：配置Nginx站点" class="headerlink" title="步骤六：配置Nginx站点"></a>步骤六：配置Nginx站点</h4><p><img src="/images/experiment8/2026-07-10-23-53-02.png" alt="Nginx配置"></p>
-<p><img src="/images/experiment8/2026-07-10-23-58-38.png" alt="配置检查"></p>
-<h4 id="步骤七：SCP传输静态文件"><a href="#步骤七：SCP传输静态文件" class="headerlink" title="步骤七：SCP传输静态文件"></a>步骤七：SCP传输静态文件</h4><p><img src="/images/experiment8/2026-07-11-00-35-04.png" alt="SCP传输"></p>
-<p><img src="/images/experiment8/2026-07-11-00-36-43.png" alt="部署成功"></p>
-<h2 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h2><ol>
-<li>完成两套Web站点部署方案（云端自动部署 + 本地Linux服务器部署）；</li>
-<li>掌握CI&#x2F;CD自动化部署思想，代码提交后自动构建上线；</li>
-<li>熟练使用Git管理项目源码，区分源码仓库与静态部署仓库；</li>
-<li>学会Linux Nginx静态网站部署流程。</li>
-</ol>
-<h2 id="五、知识总结"><a href="#五、知识总结" class="headerlink" title="五、知识总结"></a>五、知识总结</h2><h3 id="CI与CD概念区分"><a href="#CI与CD概念区分" class="headerlink" title="CI与CD概念区分"></a>CI与CD概念区分</h3><table>
-<thead>
-<tr>
-<th>概念</th>
-<th>全称</th>
-<th>实验中体现</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>CI持续集成</td>
-<td>Continuous Integration</td>
-<td>推送代码自动安装依赖、生成页面</td>
-</tr>
-<tr>
-<td>CD持续部署</td>
-<td>Continuous Deployment</td>
-<td>构建完成自动推送至Pages线上环境</td>
-</tr>
-</tbody></table>
-<h3 id="两种部署方案对比"><a href="#两种部署方案对比" class="headerlink" title="两种部署方案对比"></a>两种部署方案对比</h3><table>
-<thead>
-<tr>
-<th>部署方式</th>
-<th>优点</th>
-<th>缺点</th>
-<th>适用场景</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>GitHub Pages</td>
-<td>免费、无需服务器、自动CI&#x2F;CD</td>
-<td>仅静态站点</td>
-<td>个人博客、文档站</td>
-</tr>
-<tr>
-<td>Linux+Nginx</td>
-<td>可控性强、可扩展后端</td>
-<td>需维护服务器</td>
-<td>企业站点、带后端项目</td>
-</tr>
-</tbody></table>
-<h2 id="六、出现问题"><a href="#六、出现问题" class="headerlink" title="六、出现问题"></a>六、出现问题</h2><p>rsync远程部署失败（兼容问题）→ 采用scp进行传输</p>
-<h2 id="七、心得体会"><a href="#七、心得体会" class="headerlink" title="七、心得体会"></a>七、心得体会</h2><p>本次实验是整套软件开发工具实践综合收尾实验，整合了虚拟机、Linux命令、SSH远程、Git版本控制、Hexo静态网站、自动化部署全部知识点。GitHub、Hexo、Nginx、Linux全部为开源免费工具，开源社区降低了软件开发与部署门槛。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/10/%E5%AE%9E%E9%AA%8C%E5%85%AD-Linux%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="next">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/07/10/%E5%AE%9E%E9%AA%8C%E5%85%AD-Linux%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">实验六 Linux环境配置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2026-07-10 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-10T00:00:00+08:00">2026-07-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-07-12 01:15:59" itemprop="dateModified" datetime="2026-07-12T01:15:59+08:00">2026-07-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" itemprop="url" rel="index"><span itemprop="name">实验报告</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h2><ol>
-<li>使用命令行进行Linux系统的基础操作；</li>
-<li>了解和简单管理常用系统配置文件与用户配置文件；</li>
-<li>掌握环境变量的查看、设置与管理方法。</li>
-</ol>
-<h2 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h2><ul>
-<li>操作系统：Ubuntu Server 22.04 LTS（VirtualBox虚拟机中）</li>
-<li>前置条件：已完成实验五，至少有一台运行中的Ubuntu虚拟机</li>
-</ul>
-<h2 id="三、实验过程"><a href="#三、实验过程" class="headerlink" title="三、实验过程"></a>三、实验过程</h2><h3 id="第一部分：系统基础信息查询"><a href="#第一部分：系统基础信息查询" class="headerlink" title="第一部分：系统基础信息查询"></a>第一部分：系统基础信息查询</h3><p><img src="/images/experiment6/2026-07-10-13-36-39.png" alt="系统信息"></p>
-<p><img src="/images/experiment6/2026-07-10-13-40-31.png" alt="文件操作"></p>
-<p><img src="/images/experiment6/2026-07-10-13-41-48.png" alt="硬件资源"></p>
-<h3 id="第二部分：用户与用户组管理"><a href="#第二部分：用户与用户组管理" class="headerlink" title="第二部分：用户与用户组管理"></a>第二部分：用户与用户组管理</h3><p><img src="/images/experiment6/2026-07-10-13-50-52.png" alt="用户配置"></p>
-<p><img src="/images/experiment6/2026-07-10-13-53-49.png" alt="创建用户"></p>
-<h3 id="第三部分：环境变量配置"><a href="#第三部分：环境变量配置" class="headerlink" title="第三部分：环境变量配置"></a>第三部分：环境变量配置</h3><p><img src="/images/experiment6/2026-07-10-14-04-08.png" alt="查看环境变量"></p>
-<p><img src="/images/experiment6/2026-07-10-14-13-44.png" alt="临时设置"></p>
-<p><img src="/images/experiment6/2026-07-10-14-18-36.png" alt="用户级永久变量"></p>
-<p><img src="/images/experiment6/2026-07-10-14-20-32.png" alt="永久变量生效"></p>
-<p><img src="/images/experiment6/2026-07-10-14-25-01.png" alt="全局环境变量"></p>
-<h2 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h2><ol>
-<li>熟练掌握Linux基础查询、文件管理、系统资源监控命令；</li>
-<li>理解passwd、shadow、group三大用户配置文件；</li>
-<li>分清临时、用户专属、系统全局三类环境变量的作用域。</li>
-</ol>
-<h2 id="五、知识总结"><a href="#五、知识总结" class="headerlink" title="五、知识总结"></a>五、知识总结</h2><h3 id="Linux数字权限对照表"><a href="#Linux数字权限对照表" class="headerlink" title="Linux数字权限对照表"></a>Linux数字权限对照表</h3><table>
-<thead>
-<tr>
-<th>数字</th>
-<th>权限组合</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>7</td>
-<td>rwx</td>
-<td>读、写、执行全部权限</td>
-</tr>
-<tr>
-<td>6</td>
-<td>rw-</td>
-<td>可读、可写，无执行权限</td>
-</tr>
-<tr>
-<td>5</td>
-<td>r-x</td>
-<td>可读、可执行，无写入权限</td>
-</tr>
-<tr>
-<td>4</td>
-<td>r–</td>
-<td>仅可读</td>
-</tr>
-<tr>
-<td>0</td>
-<td>—</td>
-<td>无任何访问权限</td>
-</tr>
-</tbody></table>
-<h3 id="环境变量配置对比"><a href="#环境变量配置对比" class="headerlink" title="环境变量配置对比"></a>环境变量配置对比</h3><table>
-<thead>
-<tr>
-<th>配置文件</th>
-<th>生效范围</th>
-<th>加载时机</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>~&#x2F;.bashrc</td>
-<td>当前登录用户</td>
-<td>每次新开终端</td>
-</tr>
-<tr>
-<td>~&#x2F;.profile</td>
-<td>当前登录用户</td>
-<td>用户登录时执行一次</td>
-</tr>
-<tr>
-<td>&#x2F;etc&#x2F;profile</td>
-<td>系统全部用户</td>
-<td>任意用户登录加载</td>
-</tr>
-<tr>
-<td>&#x2F;etc&#x2F;profile.d&#x2F;*.sh</td>
-<td>系统全部用户</td>
-<td>登录统一加载</td>
-</tr>
-</tbody></table>
-<h2 id="六、心得体会"><a href="#六、心得体会" class="headerlink" title="六、心得体会"></a>六、心得体会</h2><p>学习了Linux基础命令、用户权限管理、环境变量三个内容。Linux是开源免费操作系统，国产麒麟、统信操作系统均基于Linux内核二次开发，熟练掌握Linux命令行是后端、云计算、运维岗位必备基础能力。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/09/first/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -723,7 +275,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80-%E7%BD%91%E7%BB%9C%E8%BD%AF%E4%BB%B6%E5%9F%BA%E7%A1%80/">
+    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/08/%E5%AE%9E%E9%AA%8C%E5%85%AB-%E8%BD%AF%E4%BB%B6%E7%BB%BC%E5%90%88%E9%83%A8%E7%BD%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -737,7 +289,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80-%E7%BD%91%E7%BB%9C%E8%BD%AF%E4%BB%B6%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">实验一 网络软件基础</a>
+            <a href="/2026/07/08/%E5%AE%9E%E9%AA%8C%E5%85%AB-%E8%BD%AF%E4%BB%B6%E7%BB%BC%E5%90%88%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">实验八 软件综合部署</a>
         </h2>
 
         <div class="post-meta">
@@ -747,14 +299,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2026-07-09 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-09T00:00:00+08:00">2026-07-09</time>
+              <time title="Created: 2026-07-08 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-08T00:00:00+08:00">2026-07-08</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-07-12 01:10:42" itemprop="dateModified" datetime="2026-07-12T01:10:42+08:00">2026-07-12</time>
+                <time title="Modified: 2026-07-12 01:19:04" itemprop="dateModified" datetime="2026-07-12T01:19:04+08:00">2026-07-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -778,110 +330,74 @@
 
       
           <h2 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h2><ol>
-<li>安装并运行一个桌面网络软件（Cisco Packet Tracer）；</li>
-<li>理解C&#x2F;S、B&#x2F;S、P2P等不同网络软件类型与架构；</li>
-<li>通过动手搭建一个简单的局域网，直观感受网络软件通信的基本原理。</li>
+<li>综合运用前七个实验所学的各类工具；</li>
+<li>构建和模拟一个完整的网络环境；</li>
+<li>完整体验Web静态站点从开发到部署的全过程；</li>
+<li>掌握自动化部署（CI&#x2F;CD）的基本概念与实践方法。</li>
 </ol>
 <h2 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h2><ul>
-<li>操作系统：Windows 10&#x2F;11</li>
-<li>网络：需要互联网连接以下载软件</li>
-<li>软件：Cisco Packet Tracer（免费，需注册Cisco NetAcad账号）</li>
+<li>操作系统：Windows 10&#x2F;11 + Ubuntu Server 22.04（虚拟机）</li>
+<li>前置条件：已完成实验二、三、四、五、七</li>
+<li>所需账号：GitHub账号</li>
 </ul>
-<h2 id="三、实验过程"><a href="#三、实验过程" class="headerlink" title="三、实验过程"></a>三、实验过程</h2><h3 id="步骤一：注册Cisco-NetAcad账号并下载Packet-Tracer"><a href="#步骤一：注册Cisco-NetAcad账号并下载Packet-Tracer" class="headerlink" title="步骤一：注册Cisco NetAcad账号并下载Packet Tracer"></a>步骤一：注册Cisco NetAcad账号并下载Packet Tracer</h3><ol>
-<li>打开浏览器访问Cisco Networking Academy官网，点击页面右上角注册按钮。</li>
-<li>依次填写所在地区、出生年月、邮箱等信息，完成账号注册并邮箱验证。</li>
-<li>登录账号后进入学习资源页面，找到Cisco Packet Tracer下载入口，选择Windows 64位版本安装包下载。</li>
+<h2 id="三、实验过程"><a href="#三、实验过程" class="headerlink" title="三、实验过程"></a>三、实验过程</h2><h3 id="第一部分：GitHub-Pages-Actions自动部署"><a href="#第一部分：GitHub-Pages-Actions自动部署" class="headerlink" title="第一部分：GitHub Pages + Actions自动部署"></a>第一部分：GitHub Pages + Actions自动部署</h3><h4 id="步骤一：本地Hexo项目校验"><a href="#步骤一：本地Hexo项目校验" class="headerlink" title="步骤一：本地Hexo项目校验"></a>步骤一：本地Hexo项目校验</h4><p><img src="/images/experiment8/2026-07-10-20-12-24.png" alt="启动服务"></p>
+<h4 id="步骤二：关联远程仓库并推送"><a href="#步骤二：关联远程仓库并推送" class="headerlink" title="步骤二：关联远程仓库并推送"></a>步骤二：关联远程仓库并推送</h4><p><img src="/images/experiment8/2026-07-10-20-19-00.png" alt="Git推送"></p>
+<p><img src="/images/experiment8/2026-07-10-20-29-17.png" alt="推送成功"></p>
+<h4 id="步骤三：配置GitHub-Actions工作流"><a href="#步骤三：配置GitHub-Actions工作流" class="headerlink" title="步骤三：配置GitHub Actions工作流"></a>步骤三：配置GitHub Actions工作流</h4><p><img src="/images/experiment8/2026-07-10-23-31-36.png" alt="工作流配置"></p>
+<h4 id="步骤四：访问线上站点"><a href="#步骤四：访问线上站点" class="headerlink" title="步骤四：访问线上站点"></a>步骤四：访问线上站点</h4><h3 id="第二部分：Linux-Nginx手动部署"><a href="#第二部分：Linux-Nginx手动部署" class="headerlink" title="第二部分：Linux Nginx手动部署"></a>第二部分：Linux Nginx手动部署</h3><h4 id="步骤五：安装Nginx"><a href="#步骤五：安装Nginx" class="headerlink" title="步骤五：安装Nginx"></a>步骤五：安装Nginx</h4><p><img src="/images/experiment8/2026-07-10-23-46-56.png" alt="安装Nginx"></p>
+<h4 id="步骤六：配置Nginx站点"><a href="#步骤六：配置Nginx站点" class="headerlink" title="步骤六：配置Nginx站点"></a>步骤六：配置Nginx站点</h4><p><img src="/images/experiment8/2026-07-10-23-53-02.png" alt="Nginx配置"></p>
+<p><img src="/images/experiment8/2026-07-10-23-58-38.png" alt="配置检查"></p>
+<h4 id="步骤七：SCP传输静态文件"><a href="#步骤七：SCP传输静态文件" class="headerlink" title="步骤七：SCP传输静态文件"></a>步骤七：SCP传输静态文件</h4><p><img src="/images/experiment8/2026-07-11-00-35-04.png" alt="SCP传输"></p>
+<p><img src="/images/experiment8/2026-07-11-00-36-43.png" alt="部署成功"></p>
+<h2 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h2><ol>
+<li>完成两套Web站点部署方案（云端自动部署 + 本地Linux服务器部署）；</li>
+<li>掌握CI&#x2F;CD自动化部署思想，代码提交后自动构建上线；</li>
+<li>熟练使用Git管理项目源码，区分源码仓库与静态部署仓库；</li>
+<li>学会Linux Nginx静态网站部署流程。</li>
 </ol>
-<p><img src="/images/experiment1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-07-09%20121536.png" alt="注册下载界面"></p>
-<h3 id="步骤二：安装Cisco-Packet-Tracer"><a href="#步骤二：安装Cisco-Packet-Tracer" class="headerlink" title="步骤二：安装Cisco Packet Tracer"></a>步骤二：安装Cisco Packet Tracer</h3><ol>
-<li>找到下载完成的PacketTracer，右键选择以管理员身份运行启动安装向导。</li>
-<li>点击Install开始安装，等待进度条走完后点击Finish完成安装。</li>
-</ol>
-<p><img src="/images/experiment1/2026-07-09-12-52-13.png" alt="安装界面"></p>
-<h3 id="步骤三：搭建局域网硬件拓扑"><a href="#步骤三：搭建局域网硬件拓扑" class="headerlink" title="步骤三：搭建局域网硬件拓扑"></a>步骤三：搭建局域网硬件拓扑</h3><ol>
-<li>在左侧设备栏选择Switches，拖拽2960交换机至工作区；再进入End Devices拖拽两台PC（PC0、PC1）。</li>
-<li>点击连线工具，选择Copper Straight-Through直通线。</li>
-<li>PC0 FastEthernet0端口连接交换机FastEthernet0&#x2F;1；PC1 FastEthernet0端口连接交换机FastEthernet0&#x2F;2。</li>
-</ol>
-<p><img src="/images/experiment1/2026-07-09-13-05-13.png" alt="拓扑搭建"></p>
-<h3 id="步骤四：配置两台PC静态IP地址"><a href="#步骤四：配置两台PC静态IP地址" class="headerlink" title="步骤四：配置两台PC静态IP地址"></a>步骤四：配置两台PC静态IP地址</h3><ol>
-<li>双击PC0，切换至Desktop→IP Configuration，选择Static静态配置：<ul>
-<li>IPv4 Address：192.168.1.1</li>
-<li>Subnet Mask：255.255.255.0</li>
-</ul>
-</li>
-<li>双击PC1，同样进入IP配置页面：<ul>
-<li>IPv4 Address：192.168.1.2</li>
-<li>Subnet Mask：255.255.255.0</li>
-</ul>
-</li>
-</ol>
-<p><img src="/images/experiment1/2026-07-09-15-09-19.png" alt="IP配置"></p>
-<h3 id="步骤五：命令行ping连通性测试"><a href="#步骤五：命令行ping连通性测试" class="headerlink" title="步骤五：命令行ping连通性测试"></a>步骤五：命令行ping连通性测试</h3><ol>
-<li>打开PC0的Desktop→Command Prompt命令行窗口。</li>
-<li>输入命令ping 192.168.1.2执行连通测试。</li>
-<li>观察返回数据包回复信息，确认无丢包。</li>
-</ol>
-<p><img src="/images/experiment1/2026-07-09-15-11-49.png" alt="ping测试"></p>
-<h3 id="步骤六：仿真模式观察数据包传输流程"><a href="#步骤六：仿真模式观察数据包传输流程" class="headerlink" title="步骤六：仿真模式观察数据包传输流程"></a>步骤六：仿真模式观察数据包传输流程</h3><ol>
-<li>右下角切换至Simulation仿真模式，点击信封图标Add Simple PDU。</li>
-<li>先点击PC0作为源设备，再点击PC1作为目标设备。</li>
-<li>点击自动捕获播放按钮，直观查看数据包从PC0→交换机→PC1完整转发流程，点开数据包可查看各层封装信息。</li>
-</ol>
-<h2 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h2><h3 id="4-1-连通性测试汇总表"><a href="#4-1-连通性测试汇总表" class="headerlink" title="4.1 连通性测试汇总表"></a>4.1 连通性测试汇总表</h3><table>
+<h2 id="五、知识总结"><a href="#五、知识总结" class="headerlink" title="五、知识总结"></a>五、知识总结</h2><h3 id="CI与CD概念区分"><a href="#CI与CD概念区分" class="headerlink" title="CI与CD概念区分"></a>CI与CD概念区分</h3><table>
 <thead>
 <tr>
-<th>测试项</th>
-<th>源设备(IP)</th>
-<th>目标设备(IP)</th>
-<th>测试结果</th>
-<th>丢包率</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ping连通测试</td>
-<td>PC0(192.168.1.1)</td>
-<td>PC1(192.168.1.2)</td>
-<td>✅ 成功</td>
-<td>0%</td>
-</tr>
-</tbody></table>
-<h3 id="4-2-成果说明"><a href="#4-2-成果说明" class="headerlink" title="4.2 成果说明"></a>4.2 成果说明</h3><ol>
-<li>成功完成Cisco Packet Tracer安装、账号登录，软件功能可正常使用；</li>
-<li>完成基础局域网拓扑搭建，设备线缆连接无报错；</li>
-<li>两台终端IP配置在同一网段，双向ping测试全部收到回复，网络通信正常；</li>
-<li>仿真模式下可完整观测数据包转发过程，理解二层交换机数据转发逻辑。</li>
-</ol>
-<h2 id="五、知识总结"><a href="#五、知识总结" class="headerlink" title="五、知识总结"></a>五、知识总结</h2><h3 id="三种主流网络软件架构对比"><a href="#三种主流网络软件架构对比" class="headerlink" title="三种主流网络软件架构对比"></a>三种主流网络软件架构对比</h3><table>
-<thead>
-<tr>
-<th>架构类型</th>
+<th>概念</th>
 <th>全称</th>
-<th>核心特征</th>
-<th>典型例子</th>
+<th>实验中体现</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>C&#x2F;S架构</td>
-<td>客户端&#x2F;服务器</td>
-<td>需要安装专用客户端，两端分工协作</td>
-<td>网络游戏、微信、Packet Tracer</td>
+<td>CI持续集成</td>
+<td>Continuous Integration</td>
+<td>推送代码自动安装依赖、生成页面</td>
 </tr>
 <tr>
-<td>B&#x2F;S架构</td>
-<td>浏览器&#x2F;服务器</td>
-<td>仅浏览器即可访问，业务逻辑在服务端</td>
-<td>淘宝、知乎、在线文档</td>
-</tr>
-<tr>
-<td>P2P架构</td>
-<td>点对点</td>
-<td>每个节点同时充当客户端与服务器</td>
-<td>BT下载、局域网传输工具</td>
+<td>CD持续部署</td>
+<td>Continuous Deployment</td>
+<td>构建完成自动推送至Pages线上环境</td>
 </tr>
 </tbody></table>
-<h2 id="六、心得体会"><a href="#六、心得体会" class="headerlink" title="六、心得体会"></a>六、心得体会</h2><h3 id="技术层面"><a href="#技术层面" class="headerlink" title="技术层面"></a>技术层面</h3><p>简单了解了Cisco Packet Tracer这一工具，并且感受了小型局域网的搭建，还通过了仿真测试直观看到了数据包的传输过程。</p>
-<h3 id="思政层面"><a href="#思政层面" class="headerlink" title="思政层面"></a>思政层面</h3><p>目前国内在网络仿真工具方面存在欠缺，配套的工具较少。我们需要持续学习，助力我们国家完善网络教学生态，让信息技术自主可控。</p>
+<h3 id="两种部署方案对比"><a href="#两种部署方案对比" class="headerlink" title="两种部署方案对比"></a>两种部署方案对比</h3><table>
+<thead>
+<tr>
+<th>部署方式</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GitHub Pages</td>
+<td>免费、无需服务器、自动CI&#x2F;CD</td>
+<td>仅静态站点</td>
+<td>个人博客、文档站</td>
+</tr>
+<tr>
+<td>Linux+Nginx</td>
+<td>可控性强、可扩展后端</td>
+<td>需维护服务器</td>
+<td>企业站点、带后端项目</td>
+</tr>
+</tbody></table>
+<h2 id="六、出现问题"><a href="#六、出现问题" class="headerlink" title="六、出现问题"></a>六、出现问题</h2><p>rsync远程部署失败（兼容问题）→ 采用scp进行传输</p>
+<h2 id="七、心得体会"><a href="#七、心得体会" class="headerlink" title="七、心得体会"></a>七、心得体会</h2><p>本次实验是整套软件开发工具实践综合收尾实验，整合了虚拟机、Linux命令、SSH远程、Git版本控制、Hexo静态网站、自动化部署全部知识点。GitHub、Hexo、Nginx、Linux全部为开源免费工具，开源社区降低了软件开发与部署门槛。</p>
 
       
     </div>
@@ -901,7 +417,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89-%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/07/%E5%AE%9E%E9%AA%8C%E4%B8%83-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%AE%A1%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -915,7 +431,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89-%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8/" class="post-title-link" itemprop="url">实验三 代码编辑器</a>
+            <a href="/2026/07/07/%E5%AE%9E%E9%AA%8C%E4%B8%83-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">实验七 远程登录管理</a>
         </h2>
 
         <div class="post-meta">
@@ -925,14 +441,650 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2026-07-09 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-09T00:00:00+08:00">2026-07-09</time>
+              <time title="Created: 2026-07-07 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-07T00:00:00+08:00">2026-07-07</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-07-12 01:13:47" itemprop="dateModified" datetime="2026-07-12T01:13:47+08:00">2026-07-12</time>
+                <time title="Modified: 2026-07-12 01:19:04" itemprop="dateModified" datetime="2026-07-12T01:19:04+08:00">2026-07-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" itemprop="url" rel="index"><span itemprop="name">实验报告</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h2><ol>
+<li>安装和配置OpenSSH服务，实现多机远程登录管理；</li>
+<li>配置SSH密钥认证，实现免密登录；</li>
+<li>掌握使用SCP和rsync进行跨机文件传输与同步。</li>
+</ol>
+<h2 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h2><ul>
+<li>操作系统：Ubuntu Server 22.04 LTS</li>
+<li>网络：所有虚拟机处于同一Host-Only网络（192.168.56.0&#x2F;24）</li>
+<li>前置条件：已完成实验五，拥有至少两台Ubuntu虚拟机</li>
+</ul>
+<h2 id="三、实验过程"><a href="#三、实验过程" class="headerlink" title="三、实验过程"></a>三、实验过程</h2><h3 id="步骤一：查看SSH服务运行状态"><a href="#步骤一：查看SSH服务运行状态" class="headerlink" title="步骤一：查看SSH服务运行状态"></a>步骤一：查看SSH服务运行状态</h3><p><img src="/images/experiment7/2026-07-10-15-08-50.png" alt="SSH状态"></p>
+<h3 id="步骤二：配置sshd-config"><a href="#步骤二：配置sshd-config" class="headerlink" title="步骤二：配置sshd_config"></a>步骤二：配置sshd_config</h3><p><img src="/images/experiment7/2026-07-10-15-39-07.png" alt="SSH配置"></p>
+<h3 id="步骤三：生成SSH密钥对"><a href="#步骤三：生成SSH密钥对" class="headerlink" title="步骤三：生成SSH密钥对"></a>步骤三：生成SSH密钥对</h3><p><img src="/images/experiment7/2026-07-10-16-12-41.png" alt="生成密钥"></p>
+<h3 id="步骤四：推送公钥实现免密登录"><a href="#步骤四：推送公钥实现免密登录" class="headerlink" title="步骤四：推送公钥实现免密登录"></a>步骤四：推送公钥实现免密登录</h3><p><img src="/images/experiment7/2026-07-10-16-17-06.png" alt="推送公钥"></p>
+<h3 id="步骤五：测试免密登录"><a href="#步骤五：测试免密登录" class="headerlink" title="步骤五：测试免密登录"></a>步骤五：测试免密登录</h3><p><img src="/images/experiment7/2026-07-10-16-18-20.png" alt="免密登录"></p>
+<h3 id="步骤六：SCP文件传输"><a href="#步骤六：SCP文件传输" class="headerlink" title="步骤六：SCP文件传输"></a>步骤六：SCP文件传输</h3><p><img src="/images/experiment7/2026-07-10-16-29-31.png" alt="SCP上传"></p>
+<p><img src="/images/experiment7/2026-07-10-16-33-59.png" alt="SCP下载"></p>
+<h3 id="步骤七：rsync增量同步"><a href="#步骤七：rsync增量同步" class="headerlink" title="步骤七：rsync增量同步"></a>步骤七：rsync增量同步</h3><p><img src="/images/experiment7/2026-07-10-16-36-42.png" alt="安装rsync"></p>
+<p><img src="/images/experiment7/2026-07-10-16-40-59.png" alt="本地同步"></p>
+<p><img src="/images/experiment7/2026-07-10-16-49-05.png" alt="远程推送"></p>
+<p><img src="/images/experiment7/2026-07-10-16-53-10.png" alt="严格同步"></p>
+<h2 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h2><ol>
+<li>完成OpenSSH服务部署，关闭root远程登录提升安全性；</li>
+<li>实现ED25519加密密钥免密登录；</li>
+<li>熟练使用SCP和rsync完成文件传输与增量同步。</li>
+</ol>
+<h2 id="五、知识总结"><a href="#五、知识总结" class="headerlink" title="五、知识总结"></a>五、知识总结</h2><h3 id="SSH认证方式对比"><a href="#SSH认证方式对比" class="headerlink" title="SSH认证方式对比"></a>SSH认证方式对比</h3><table>
+<thead>
+<tr>
+<th>认证方式</th>
+<th>原理</th>
+<th>安全等级</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>密码认证</td>
+<td>输入账号密码</td>
+<td>较低</td>
+<td>临时测试</td>
+</tr>
+<tr>
+<td>密钥认证</td>
+<td>公私钥配对</td>
+<td>高</td>
+<td>日常运维、自动化脚本</td>
+</tr>
+</tbody></table>
+<h3 id="SCP与rsync对比"><a href="#SCP与rsync对比" class="headerlink" title="SCP与rsync对比"></a>SCP与rsync对比</h3><table>
+<thead>
+<tr>
+<th>工具</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SCP</td>
+<td>完整覆盖传输</td>
+<td>少量文件一次性传输</td>
+</tr>
+<tr>
+<td>rsync</td>
+<td>增量同步，支持删除冗余</td>
+<td>大型目录定时备份</td>
+</tr>
+</tbody></table>
+<h2 id="六、出现问题"><a href="#六、出现问题" class="headerlink" title="六、出现问题"></a>六、出现问题</h2><ol>
+<li>rsync远程同步报错 → 远程服务器安装rsync</li>
+<li>SSH连接Connection refused → 启动openssh-server服务</li>
+</ol>
+<h2 id="七、心得体会"><a href="#七、心得体会" class="headerlink" title="七、心得体会"></a>七、心得体会</h2><p>掌握SSH远程登录运维技术，理解密钥加密相比密码登录的安全优势。SSH是开源安全协议，国内麒麟、统信系统均内置OpenSSH工具。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/06/%E5%AE%9E%E9%AA%8C%E5%85%AD-Linux%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="next">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/07/06/%E5%AE%9E%E9%AA%8C%E5%85%AD-Linux%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">实验六 Linux环境配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-06 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-06T00:00:00+08:00">2026-07-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-07-12 01:19:04" itemprop="dateModified" datetime="2026-07-12T01:19:04+08:00">2026-07-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" itemprop="url" rel="index"><span itemprop="name">实验报告</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h2><ol>
+<li>使用命令行进行Linux系统的基础操作；</li>
+<li>了解和简单管理常用系统配置文件与用户配置文件；</li>
+<li>掌握环境变量的查看、设置与管理方法。</li>
+</ol>
+<h2 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h2><ul>
+<li>操作系统：Ubuntu Server 22.04 LTS（VirtualBox虚拟机中）</li>
+<li>前置条件：已完成实验五，至少有一台运行中的Ubuntu虚拟机</li>
+</ul>
+<h2 id="三、实验过程"><a href="#三、实验过程" class="headerlink" title="三、实验过程"></a>三、实验过程</h2><h3 id="第一部分：系统基础信息查询"><a href="#第一部分：系统基础信息查询" class="headerlink" title="第一部分：系统基础信息查询"></a>第一部分：系统基础信息查询</h3><p><img src="/images/experiment6/2026-07-10-13-36-39.png" alt="系统信息"></p>
+<p><img src="/images/experiment6/2026-07-10-13-40-31.png" alt="文件操作"></p>
+<p><img src="/images/experiment6/2026-07-10-13-41-48.png" alt="硬件资源"></p>
+<h3 id="第二部分：用户与用户组管理"><a href="#第二部分：用户与用户组管理" class="headerlink" title="第二部分：用户与用户组管理"></a>第二部分：用户与用户组管理</h3><p><img src="/images/experiment6/2026-07-10-13-50-52.png" alt="用户配置"></p>
+<p><img src="/images/experiment6/2026-07-10-13-53-49.png" alt="创建用户"></p>
+<h3 id="第三部分：环境变量配置"><a href="#第三部分：环境变量配置" class="headerlink" title="第三部分：环境变量配置"></a>第三部分：环境变量配置</h3><p><img src="/images/experiment6/2026-07-10-14-04-08.png" alt="查看环境变量"></p>
+<p><img src="/images/experiment6/2026-07-10-14-13-44.png" alt="临时设置"></p>
+<p><img src="/images/experiment6/2026-07-10-14-18-36.png" alt="用户级永久变量"></p>
+<p><img src="/images/experiment6/2026-07-10-14-20-32.png" alt="永久变量生效"></p>
+<p><img src="/images/experiment6/2026-07-10-14-25-01.png" alt="全局环境变量"></p>
+<h2 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h2><ol>
+<li>熟练掌握Linux基础查询、文件管理、系统资源监控命令；</li>
+<li>理解passwd、shadow、group三大用户配置文件；</li>
+<li>分清临时、用户专属、系统全局三类环境变量的作用域。</li>
+</ol>
+<h2 id="五、知识总结"><a href="#五、知识总结" class="headerlink" title="五、知识总结"></a>五、知识总结</h2><h3 id="Linux数字权限对照表"><a href="#Linux数字权限对照表" class="headerlink" title="Linux数字权限对照表"></a>Linux数字权限对照表</h3><table>
+<thead>
+<tr>
+<th>数字</th>
+<th>权限组合</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7</td>
+<td>rwx</td>
+<td>读、写、执行全部权限</td>
+</tr>
+<tr>
+<td>6</td>
+<td>rw-</td>
+<td>可读、可写，无执行权限</td>
+</tr>
+<tr>
+<td>5</td>
+<td>r-x</td>
+<td>可读、可执行，无写入权限</td>
+</tr>
+<tr>
+<td>4</td>
+<td>r–</td>
+<td>仅可读</td>
+</tr>
+<tr>
+<td>0</td>
+<td>—</td>
+<td>无任何访问权限</td>
+</tr>
+</tbody></table>
+<h3 id="环境变量配置对比"><a href="#环境变量配置对比" class="headerlink" title="环境变量配置对比"></a>环境变量配置对比</h3><table>
+<thead>
+<tr>
+<th>配置文件</th>
+<th>生效范围</th>
+<th>加载时机</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>~&#x2F;.bashrc</td>
+<td>当前登录用户</td>
+<td>每次新开终端</td>
+</tr>
+<tr>
+<td>~&#x2F;.profile</td>
+<td>当前登录用户</td>
+<td>用户登录时执行一次</td>
+</tr>
+<tr>
+<td>&#x2F;etc&#x2F;profile</td>
+<td>系统全部用户</td>
+<td>任意用户登录加载</td>
+</tr>
+<tr>
+<td>&#x2F;etc&#x2F;profile.d&#x2F;*.sh</td>
+<td>系统全部用户</td>
+<td>登录统一加载</td>
+</tr>
+</tbody></table>
+<h2 id="六、心得体会"><a href="#六、心得体会" class="headerlink" title="六、心得体会"></a>六、心得体会</h2><p>学习了Linux基础命令、用户权限管理、环境变量三个内容。Linux是开源免费操作系统，国产麒麟、统信操作系统均基于Linux内核二次开发，熟练掌握Linux命令行是后端、云计算、运维岗位必备基础能力。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/05/%E5%AE%9E%E9%AA%8C%E4%BA%94-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="next">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/07/05/%E5%AE%9E%E9%AA%8C%E4%BA%94-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">实验五 虚拟机安装与使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-05 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-05T00:00:00+08:00">2026-07-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-07-12 01:19:04" itemprop="dateModified" datetime="2026-07-12T01:19:04+08:00">2026-07-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" itemprop="url" rel="index"><span itemprop="name">实验报告</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h2><ol>
+<li>使用虚拟机工具（VirtualBox）安装Linux系统（Ubuntu Server）；</li>
+<li>通过克隆技术构建一个多机虚拟化环境；</li>
+<li>了解和掌握基于虚拟机的开发环境的基本构建方法和配置。</li>
+</ol>
+<h2 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h2><ul>
+<li>操作系统：Windows 10&#x2F;11</li>
+<li>硬件要求：CPU支持VT-x&#x2F;AMD-V；内存≥8GB</li>
+<li>所需软件：Oracle VirtualBox、Ubuntu Server 22.04 LTS ISO镜像</li>
+</ul>
+<h2 id="三、实验过程"><a href="#三、实验过程" class="headerlink" title="三、实验过程"></a>三、实验过程</h2><h3 id="步骤一：下载并安装VirtualBox"><a href="#步骤一：下载并安装VirtualBox" class="headerlink" title="步骤一：下载并安装VirtualBox"></a>步骤一：下载并安装VirtualBox</h3><p><img src="/images/experiment5/2026-07-09-18-49-17.png" alt="VirtualBox安装"></p>
+<h3 id="步骤二：创建模板虚拟机"><a href="#步骤二：创建模板虚拟机" class="headerlink" title="步骤二：创建模板虚拟机"></a>步骤二：创建模板虚拟机</h3><p>内存3096MB，VDI动态分配25GB，双网卡（NAT + Host-Only）。</p>
+<p><img src="/images/experiment5/2026-07-09-23-25-03.png" alt="创建虚拟机"></p>
+<h3 id="步骤三：Ubuntu系统安装与静态IP配置"><a href="#步骤三：Ubuntu系统安装与静态IP配置" class="headerlink" title="步骤三：Ubuntu系统安装与静态IP配置"></a>步骤三：Ubuntu系统安装与静态IP配置</h3><p><img src="/images/experiment5/2026-07-10-11-44-38.png" alt="静态IP配置"></p>
+<h3 id="步骤四：克隆虚拟机"><a href="#步骤四：克隆虚拟机" class="headerlink" title="步骤四：克隆虚拟机"></a>步骤四：克隆虚拟机</h3><p><img src="/images/experiment5/2026-07-10-12-10-41.png" alt="克隆虚拟机"></p>
+<h3 id="步骤五：连通测试"><a href="#步骤五：连通测试" class="headerlink" title="步骤五：连通测试"></a>步骤五：连通测试</h3><p><img src="/images/experiment5/2026-07-10-12-41-52.png" alt="连通测试"></p>
+<p><img src="/images/experiment5/2026-07-10-13-25-19.png" alt="测试结果"></p>
+<h2 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h2><p>成功搭建多机Linux集群，所有虚拟机互通正常。</p>
+<h2 id="五、知识总结"><a href="#五、知识总结" class="headerlink" title="五、知识总结"></a>五、知识总结</h2><table>
+<thead>
+<tr>
+<th>网络模式</th>
+<th>访问权限</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NAT</td>
+<td>虚拟机可上外网</td>
+<td>日常下载更新</td>
+</tr>
+<tr>
+<td>桥接模式</td>
+<td>与宿主机同局域网</td>
+<td>外部直连虚拟机</td>
+</tr>
+<tr>
+<td>Host-Only</td>
+<td>仅宿主机互通</td>
+<td>隔离内网集群</td>
+</tr>
+</tbody></table>
+<h2 id="六、心得体会"><a href="#六、心得体会" class="headerlink" title="六、心得体会"></a>六、心得体会</h2><p>掌握虚拟化软件安装、Linux虚拟机部署、多机克隆与静态网络配置。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/04/%E5%AE%9E%E9%AA%8C%E5%9B%9B-Web%E7%AB%99%E7%82%B9%E6%9E%84%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="next">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/07/04/%E5%AE%9E%E9%AA%8C%E5%9B%9B-Web%E7%AB%99%E7%82%B9%E6%9E%84%E5%BB%BA/" class="post-title-link" itemprop="url">实验四 Web站点构建</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-04 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-04T00:00:00+08:00">2026-07-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-07-12 01:19:04" itemprop="dateModified" datetime="2026-07-12T01:19:04+08:00">2026-07-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" itemprop="url" rel="index"><span itemprop="name">实验报告</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h2><ol>
+<li>使用静态站点构建工具（Hexo）构建一个静态Web博客站点；</li>
+<li>了解和掌握Web应用开发的基本要素与流程：环境准备 → 项目初始化 → 内容编写 → 主题配置 → 本地预览 → 部署上线；</li>
+<li>理解静态站点生成器（SSG）的工作原理及其与动态站点的区别。</li>
+</ol>
+<h2 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h2><ul>
+<li>操作系统：Windows 10&#x2F;11</li>
+<li>网络：需要互联网连接</li>
+<li>前置条件：已完成实验二（Node.js、npm、Git已安装并配置）</li>
+<li>所需账号：GitHub账号（用于免费部署）</li>
+</ul>
+<h2 id="三、实验过程"><a href="#三、实验过程" class="headerlink" title="三、实验过程"></a>三、实验过程</h2><h3 id="步骤一：环境校验，确认基础工具可用"><a href="#步骤一：环境校验，确认基础工具可用" class="headerlink" title="步骤一：环境校验，确认基础工具可用"></a>步骤一：环境校验，确认基础工具可用</h3><ol>
+<li>打开CMD命令提示符，依次执行三条校验命令，验证Node、npm、Git全部正常安装。</li>
+</ol>
+<p><img src="/images/experiment4/2026-07-09-18-15-35.png" alt="环境校验"></p>
+<h3 id="步骤二：全局安装Hexo-CLI工具"><a href="#步骤二：全局安装Hexo-CLI工具" class="headerlink" title="步骤二：全局安装Hexo CLI工具"></a>步骤二：全局安装Hexo CLI工具</h3><ol>
+<li>在CMD执行全局安装命令。</li>
+<li>安装完成后输入hexo -v，查看Hexo完整版本与依赖信息。</li>
+</ol>
+<p><img src="/images/experiment4/2026-07-09-18-16-24.png" alt="Hexo安装"></p>
+<h3 id="步骤三：初始化Hexo博客项目"><a href="#步骤三：初始化Hexo博客项目" class="headerlink" title="步骤三：初始化Hexo博客项目"></a>步骤三：初始化Hexo博客项目</h3><ol>
+<li>创建博客存放目录并进入文件夹。</li>
+<li>执行hexo init my-blog初始化命令生成博客模板。</li>
+<li>进入项目目录，自动安装依赖包。</li>
+<li>查看项目完整目录结构。</li>
+</ol>
+<h3 id="步骤四：本地启动预览服务"><a href="#步骤四：本地启动预览服务" class="headerlink" title="步骤四：本地启动预览服务"></a>步骤四：本地启动预览服务</h3><ol>
+<li>在my-blog目录执行启动命令。</li>
+<li>控制台输出INFO Hexo is running at <a href="http://localhost:4000即启动成功。">http://localhost:4000即启动成功。</a></li>
+</ol>
+<h3 id="步骤五：新建并编辑博客文章"><a href="#步骤五：新建并编辑博客文章" class="headerlink" title="步骤五：新建并编辑博客文章"></a>步骤五：新建并编辑博客文章</h3><ol>
+<li>执行hexo new “我的第一篇博客”新建文章。</li>
+<li>VS Code打开生成的Markdown文件，修改标题、标签、正文测试内容。</li>
+<li>保存后生成静态页面，重启服务刷新查看效果。</li>
+</ol>
+<h3 id="步骤六：安装NexT美化主题"><a href="#步骤六：安装NexT美化主题" class="headerlink" title="步骤六：安装NexT美化主题"></a>步骤六：安装NexT美化主题</h3><ol>
+<li>使用Git克隆NexT主题至themes文件夹。</li>
+<li>打开_config.yml，修改	heme: next。</li>
+<li>清理缓存、重新生成页面并启动服务预览新主题样式。</li>
+</ol>
+<h3 id="步骤七：GitHub仓库创建与部署配置"><a href="#步骤七：GitHub仓库创建与部署配置" class="headerlink" title="步骤七：GitHub仓库创建与部署配置"></a>步骤七：GitHub仓库创建与部署配置</h3><ol>
+<li>登录GitHub，新建公开仓库（用户名.github.io）。</li>
+</ol>
+<p><img src="/images/experiment4/2026-07-09-18-20-42.png" alt="GitHub创建仓库"></p>
+<ol start="2">
+<li>在本地项目安装Git部署插件。</li>
+<li>修改_config.yml文件末尾deploy配置，填入GitHub仓库远程地址。</li>
+<li>执行一键部署命令：hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy</li>
+</ol>
+<h3 id="步骤八：访问线上博客站点"><a href="#步骤八：访问线上博客站点" class="headerlink" title="步骤八：访问线上博客站点"></a>步骤八：访问线上博客站点</h3><p>部署完成后，浏览器打开<a target="_blank" rel="noopener" href="https://yj-zj.github.io,验证线上博客文章、主题样式与本地完全一致./">https://yj-zj.github.io，验证线上博客文章、主题样式与本地完全一致。</a></p>
+<p><img src="/images/experiment4/2026-07-09-18-44-02.png" alt="线上站点"></p>
+<h2 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h2><h3 id="成果说明"><a href="#成果说明" class="headerlink" title="成果说明"></a>成果说明</h3><ol>
+<li>完整搭建Hexo静态博客开发环境，所有依赖工具正常识别调用；</li>
+<li>完成博客项目初始化，熟练掌握Hexo全套命令；</li>
+<li>成功替换NexT第三方主题，实现博客页面美化；</li>
+<li>完成GitHub仓库创建、部署插件配置，将静态站点免费部署至GitHub Pages。</li>
+</ol>
+<h2 id="五、知识总结"><a href="#五、知识总结" class="headerlink" title="五、知识总结"></a>五、知识总结</h2><h3 id="静态站点-vs-动态站点对比"><a href="#静态站点-vs-动态站点对比" class="headerlink" title="静态站点 vs 动态站点对比"></a>静态站点 vs 动态站点对比</h3><table>
+<thead>
+<tr>
+<th>对比维度</th>
+<th>静态站点（Hexo&#x2F;Hugo）</th>
+<th>动态站点（WordPress）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>页面生成时机</td>
+<td>本地提前预编译HTML</td>
+<td>用户访问时后端实时渲染</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td>无需数据库</td>
+<td>必须搭配数据库</td>
+</tr>
+<tr>
+<td>访问速度</td>
+<td>极快，纯静态文件</td>
+<td>较慢，需执行后端查询</td>
+</tr>
+<tr>
+<td>安全风险</td>
+<td>无后端攻击面，安全性高</td>
+<td>存在后台、数据库漏洞风险</td>
+</tr>
+<tr>
+<td>部署方式</td>
+<td>仅上传静态文件</td>
+<td>搭建服务器+数据库环境</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>个人博客、技术文档站</td>
+<td>电商、论坛、后台管理系统</td>
+</tr>
+</tbody></table>
+<h3 id="Hexo核心常用命令"><a href="#Hexo核心常用命令" class="headerlink" title="Hexo核心常用命令"></a>Hexo核心常用命令</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>简写</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hexo init 项目名</td>
+<td>-</td>
+<td>初始化博客项目模板</td>
+</tr>
+<tr>
+<td>hexo server</td>
+<td>hexo s</td>
+<td>启动本地预览服务</td>
+</tr>
+<tr>
+<td>hexo new “标题”</td>
+<td>-</td>
+<td>创建Markdown博客文章</td>
+</tr>
+<tr>
+<td>hexo generate</td>
+<td>hexo g</td>
+<td>编译生成静态HTML文件</td>
+</tr>
+<tr>
+<td>hexo clean</td>
+<td>-</td>
+<td>清理缓存与旧静态文件</td>
+</tr>
+<tr>
+<td>hexo deploy</td>
+<td>hexo d</td>
+<td>推送站点至远程仓库</td>
+</tr>
+</tbody></table>
+<h2 id="六、出现问题"><a href="#六、出现问题" class="headerlink" title="六、出现问题"></a>六、出现问题</h2><ol>
+<li><strong>问题1</strong>：修改theme配置后页面样式无变化 → 执行hexo clean清理缓存再重新生成。</li>
+<li><strong>问题2</strong>：部署完成博客样式丢失 → 修改_config.yml中url字段，填写完整GitHub Pages线上地址。</li>
+</ol>
+<h2 id="七、心得体会"><a href="#七、心得体会" class="headerlink" title="七、心得体会"></a>七、心得体会</h2><h3 id="技术层面"><a href="#技术层面" class="headerlink" title="技术层面"></a>技术层面</h3><p>本次实验体验了静态Web站点从本地搭建到公网部署的全流程，掌握Hexo运维命令，学会使用Git配合GitHub完成静态网站免费托管。</p>
+<h3 id="思政层面"><a href="#思政层面" class="headerlink" title="思政层面"></a>思政层面</h3><p>Hexo、GitHub、Git均为全球开源免费工具，依靠开源社区协作迭代。国内Gitee、Coding等平台正在快速追赶。我们既要熟练掌握主流开发工具，也要持续关注国产平台发展。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/03/%E5%AE%9E%E9%AA%8C%E4%B8%89-%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="next">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/07/03/%E5%AE%9E%E9%AA%8C%E4%B8%89-%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8/" class="post-title-link" itemprop="url">实验三 代码编辑器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-03 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-03T00:00:00+08:00">2026-07-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-07-12 01:19:04" itemprop="dateModified" datetime="2026-07-12T01:19:04+08:00">2026-07-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1099,7 +1251,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%BA%8C-Web%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">
+    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/02/%E5%AE%9E%E9%AA%8C%E4%BA%8C-Web%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1113,7 +1265,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%BA%8C-Web%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="post-title-link" itemprop="url">实验二 Web软件开发环境</a>
+            <a href="/2026/07/02/%E5%AE%9E%E9%AA%8C%E4%BA%8C-Web%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="post-title-link" itemprop="url">实验二 Web软件开发环境</a>
         </h2>
 
         <div class="post-meta">
@@ -1123,14 +1275,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2026-07-09 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-09T00:00:00+08:00">2026-07-09</time>
+              <time title="Created: 2026-07-02 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-02T00:00:00+08:00">2026-07-02</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-07-12 01:13:23" itemprop="dateModified" datetime="2026-07-12T01:13:23+08:00">2026-07-12</time>
+                <time title="Modified: 2026-07-12 01:19:04" itemprop="dateModified" datetime="2026-07-12T01:19:04+08:00">2026-07-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1289,7 +1441,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%BA%94-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/01/%E5%AE%9E%E9%AA%8C%E4%B8%80-%E7%BD%91%E7%BB%9C%E8%BD%AF%E4%BB%B6%E5%9F%BA%E7%A1%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1303,7 +1455,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%BA%94-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">实验五 虚拟机安装与使用</a>
+            <a href="/2026/07/01/%E5%AE%9E%E9%AA%8C%E4%B8%80-%E7%BD%91%E7%BB%9C%E8%BD%AF%E4%BB%B6%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">实验一 网络软件基础</a>
         </h2>
 
         <div class="post-meta">
@@ -1313,14 +1465,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2026-07-09 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-09T00:00:00+08:00">2026-07-09</time>
+              <time title="Created: 2026-07-01 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-01T00:00:00+08:00">2026-07-01</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-07-12 01:15:52" itemprop="dateModified" datetime="2026-07-12T01:15:52+08:00">2026-07-12</time>
+                <time title="Modified: 2026-07-12 01:19:04" itemprop="dateModified" datetime="2026-07-12T01:19:04+08:00">2026-07-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1344,262 +1496,110 @@
 
       
           <h2 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h2><ol>
-<li>使用虚拟机工具（VirtualBox）安装Linux系统（Ubuntu Server）；</li>
-<li>通过克隆技术构建一个多机虚拟化环境；</li>
-<li>了解和掌握基于虚拟机的开发环境的基本构建方法和配置。</li>
+<li>安装并运行一个桌面网络软件（Cisco Packet Tracer）；</li>
+<li>理解C&#x2F;S、B&#x2F;S、P2P等不同网络软件类型与架构；</li>
+<li>通过动手搭建一个简单的局域网，直观感受网络软件通信的基本原理。</li>
 </ol>
 <h2 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h2><ul>
 <li>操作系统：Windows 10&#x2F;11</li>
-<li>硬件要求：CPU支持VT-x&#x2F;AMD-V；内存≥8GB</li>
-<li>所需软件：Oracle VirtualBox、Ubuntu Server 22.04 LTS ISO镜像</li>
+<li>网络：需要互联网连接以下载软件</li>
+<li>软件：Cisco Packet Tracer（免费，需注册Cisco NetAcad账号）</li>
 </ul>
-<h2 id="三、实验过程"><a href="#三、实验过程" class="headerlink" title="三、实验过程"></a>三、实验过程</h2><h3 id="步骤一：下载并安装VirtualBox"><a href="#步骤一：下载并安装VirtualBox" class="headerlink" title="步骤一：下载并安装VirtualBox"></a>步骤一：下载并安装VirtualBox</h3><p><img src="/images/experiment5/2026-07-09-18-49-17.png" alt="VirtualBox安装"></p>
-<h3 id="步骤二：创建模板虚拟机"><a href="#步骤二：创建模板虚拟机" class="headerlink" title="步骤二：创建模板虚拟机"></a>步骤二：创建模板虚拟机</h3><p>内存3096MB，VDI动态分配25GB，双网卡（NAT + Host-Only）。</p>
-<p><img src="/images/experiment5/2026-07-09-23-25-03.png" alt="创建虚拟机"></p>
-<h3 id="步骤三：Ubuntu系统安装与静态IP配置"><a href="#步骤三：Ubuntu系统安装与静态IP配置" class="headerlink" title="步骤三：Ubuntu系统安装与静态IP配置"></a>步骤三：Ubuntu系统安装与静态IP配置</h3><p><img src="/images/experiment5/2026-07-10-11-44-38.png" alt="静态IP配置"></p>
-<h3 id="步骤四：克隆虚拟机"><a href="#步骤四：克隆虚拟机" class="headerlink" title="步骤四：克隆虚拟机"></a>步骤四：克隆虚拟机</h3><p><img src="/images/experiment5/2026-07-10-12-10-41.png" alt="克隆虚拟机"></p>
-<h3 id="步骤五：连通测试"><a href="#步骤五：连通测试" class="headerlink" title="步骤五：连通测试"></a>步骤五：连通测试</h3><p><img src="/images/experiment5/2026-07-10-12-41-52.png" alt="连通测试"></p>
-<p><img src="/images/experiment5/2026-07-10-13-25-19.png" alt="测试结果"></p>
-<h2 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h2><p>成功搭建多机Linux集群，所有虚拟机互通正常。</p>
-<h2 id="五、知识总结"><a href="#五、知识总结" class="headerlink" title="五、知识总结"></a>五、知识总结</h2><table>
-<thead>
-<tr>
-<th>网络模式</th>
-<th>访问权限</th>
-<th>适用场景</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>NAT</td>
-<td>虚拟机可上外网</td>
-<td>日常下载更新</td>
-</tr>
-<tr>
-<td>桥接模式</td>
-<td>与宿主机同局域网</td>
-<td>外部直连虚拟机</td>
-</tr>
-<tr>
-<td>Host-Only</td>
-<td>仅宿主机互通</td>
-<td>隔离内网集群</td>
-</tr>
-</tbody></table>
-<h2 id="六、心得体会"><a href="#六、心得体会" class="headerlink" title="六、心得体会"></a>六、心得体会</h2><p>掌握虚拟化软件安装、Linux虚拟机部署、多机克隆与静态网络配置。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/09/%E5%AE%9E%E9%AA%8C%E5%9B%9B-Web%E7%AB%99%E7%82%B9%E6%9E%84%E5%BB%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="next">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/07/09/%E5%AE%9E%E9%AA%8C%E5%9B%9B-Web%E7%AB%99%E7%82%B9%E6%9E%84%E5%BB%BA/" class="post-title-link" itemprop="url">实验四 Web站点构建</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2026-07-09 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-09T00:00:00+08:00">2026-07-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-07-12 01:13:57" itemprop="dateModified" datetime="2026-07-12T01:13:57+08:00">2026-07-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" itemprop="url" rel="index"><span itemprop="name">实验报告</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h2><ol>
-<li>使用静态站点构建工具（Hexo）构建一个静态Web博客站点；</li>
-<li>了解和掌握Web应用开发的基本要素与流程：环境准备 → 项目初始化 → 内容编写 → 主题配置 → 本地预览 → 部署上线；</li>
-<li>理解静态站点生成器（SSG）的工作原理及其与动态站点的区别。</li>
+<h2 id="三、实验过程"><a href="#三、实验过程" class="headerlink" title="三、实验过程"></a>三、实验过程</h2><h3 id="步骤一：注册Cisco-NetAcad账号并下载Packet-Tracer"><a href="#步骤一：注册Cisco-NetAcad账号并下载Packet-Tracer" class="headerlink" title="步骤一：注册Cisco NetAcad账号并下载Packet Tracer"></a>步骤一：注册Cisco NetAcad账号并下载Packet Tracer</h3><ol>
+<li>打开浏览器访问Cisco Networking Academy官网，点击页面右上角注册按钮。</li>
+<li>依次填写所在地区、出生年月、邮箱等信息，完成账号注册并邮箱验证。</li>
+<li>登录账号后进入学习资源页面，找到Cisco Packet Tracer下载入口，选择Windows 64位版本安装包下载。</li>
 </ol>
-<h2 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h2><ul>
-<li>操作系统：Windows 10&#x2F;11</li>
-<li>网络：需要互联网连接</li>
-<li>前置条件：已完成实验二（Node.js、npm、Git已安装并配置）</li>
-<li>所需账号：GitHub账号（用于免费部署）</li>
+<p><img src="/images/experiment1/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-07-09%20121536.png" alt="注册下载界面"></p>
+<h3 id="步骤二：安装Cisco-Packet-Tracer"><a href="#步骤二：安装Cisco-Packet-Tracer" class="headerlink" title="步骤二：安装Cisco Packet Tracer"></a>步骤二：安装Cisco Packet Tracer</h3><ol>
+<li>找到下载完成的PacketTracer，右键选择以管理员身份运行启动安装向导。</li>
+<li>点击Install开始安装，等待进度条走完后点击Finish完成安装。</li>
+</ol>
+<p><img src="/images/experiment1/2026-07-09-12-52-13.png" alt="安装界面"></p>
+<h3 id="步骤三：搭建局域网硬件拓扑"><a href="#步骤三：搭建局域网硬件拓扑" class="headerlink" title="步骤三：搭建局域网硬件拓扑"></a>步骤三：搭建局域网硬件拓扑</h3><ol>
+<li>在左侧设备栏选择Switches，拖拽2960交换机至工作区；再进入End Devices拖拽两台PC（PC0、PC1）。</li>
+<li>点击连线工具，选择Copper Straight-Through直通线。</li>
+<li>PC0 FastEthernet0端口连接交换机FastEthernet0&#x2F;1；PC1 FastEthernet0端口连接交换机FastEthernet0&#x2F;2。</li>
+</ol>
+<p><img src="/images/experiment1/2026-07-09-13-05-13.png" alt="拓扑搭建"></p>
+<h3 id="步骤四：配置两台PC静态IP地址"><a href="#步骤四：配置两台PC静态IP地址" class="headerlink" title="步骤四：配置两台PC静态IP地址"></a>步骤四：配置两台PC静态IP地址</h3><ol>
+<li>双击PC0，切换至Desktop→IP Configuration，选择Static静态配置：<ul>
+<li>IPv4 Address：192.168.1.1</li>
+<li>Subnet Mask：255.255.255.0</li>
 </ul>
-<h2 id="三、实验过程"><a href="#三、实验过程" class="headerlink" title="三、实验过程"></a>三、实验过程</h2><h3 id="步骤一：环境校验，确认基础工具可用"><a href="#步骤一：环境校验，确认基础工具可用" class="headerlink" title="步骤一：环境校验，确认基础工具可用"></a>步骤一：环境校验，确认基础工具可用</h3><ol>
-<li>打开CMD命令提示符，依次执行三条校验命令，验证Node、npm、Git全部正常安装。</li>
+</li>
+<li>双击PC1，同样进入IP配置页面：<ul>
+<li>IPv4 Address：192.168.1.2</li>
+<li>Subnet Mask：255.255.255.0</li>
+</ul>
+</li>
 </ol>
-<p><img src="/images/experiment4/2026-07-09-18-15-35.png" alt="环境校验"></p>
-<h3 id="步骤二：全局安装Hexo-CLI工具"><a href="#步骤二：全局安装Hexo-CLI工具" class="headerlink" title="步骤二：全局安装Hexo CLI工具"></a>步骤二：全局安装Hexo CLI工具</h3><ol>
-<li>在CMD执行全局安装命令。</li>
-<li>安装完成后输入hexo -v，查看Hexo完整版本与依赖信息。</li>
+<p><img src="/images/experiment1/2026-07-09-15-09-19.png" alt="IP配置"></p>
+<h3 id="步骤五：命令行ping连通性测试"><a href="#步骤五：命令行ping连通性测试" class="headerlink" title="步骤五：命令行ping连通性测试"></a>步骤五：命令行ping连通性测试</h3><ol>
+<li>打开PC0的Desktop→Command Prompt命令行窗口。</li>
+<li>输入命令ping 192.168.1.2执行连通测试。</li>
+<li>观察返回数据包回复信息，确认无丢包。</li>
 </ol>
-<p><img src="/images/experiment4/2026-07-09-18-16-24.png" alt="Hexo安装"></p>
-<h3 id="步骤三：初始化Hexo博客项目"><a href="#步骤三：初始化Hexo博客项目" class="headerlink" title="步骤三：初始化Hexo博客项目"></a>步骤三：初始化Hexo博客项目</h3><ol>
-<li>创建博客存放目录并进入文件夹。</li>
-<li>执行hexo init my-blog初始化命令生成博客模板。</li>
-<li>进入项目目录，自动安装依赖包。</li>
-<li>查看项目完整目录结构。</li>
+<p><img src="/images/experiment1/2026-07-09-15-11-49.png" alt="ping测试"></p>
+<h3 id="步骤六：仿真模式观察数据包传输流程"><a href="#步骤六：仿真模式观察数据包传输流程" class="headerlink" title="步骤六：仿真模式观察数据包传输流程"></a>步骤六：仿真模式观察数据包传输流程</h3><ol>
+<li>右下角切换至Simulation仿真模式，点击信封图标Add Simple PDU。</li>
+<li>先点击PC0作为源设备，再点击PC1作为目标设备。</li>
+<li>点击自动捕获播放按钮，直观查看数据包从PC0→交换机→PC1完整转发流程，点开数据包可查看各层封装信息。</li>
 </ol>
-<h3 id="步骤四：本地启动预览服务"><a href="#步骤四：本地启动预览服务" class="headerlink" title="步骤四：本地启动预览服务"></a>步骤四：本地启动预览服务</h3><ol>
-<li>在my-blog目录执行启动命令。</li>
-<li>控制台输出INFO Hexo is running at <a href="http://localhost:4000即启动成功。">http://localhost:4000即启动成功。</a></li>
-</ol>
-<h3 id="步骤五：新建并编辑博客文章"><a href="#步骤五：新建并编辑博客文章" class="headerlink" title="步骤五：新建并编辑博客文章"></a>步骤五：新建并编辑博客文章</h3><ol>
-<li>执行hexo new “我的第一篇博客”新建文章。</li>
-<li>VS Code打开生成的Markdown文件，修改标题、标签、正文测试内容。</li>
-<li>保存后生成静态页面，重启服务刷新查看效果。</li>
-</ol>
-<h3 id="步骤六：安装NexT美化主题"><a href="#步骤六：安装NexT美化主题" class="headerlink" title="步骤六：安装NexT美化主题"></a>步骤六：安装NexT美化主题</h3><ol>
-<li>使用Git克隆NexT主题至themes文件夹。</li>
-<li>打开_config.yml，修改	heme: next。</li>
-<li>清理缓存、重新生成页面并启动服务预览新主题样式。</li>
-</ol>
-<h3 id="步骤七：GitHub仓库创建与部署配置"><a href="#步骤七：GitHub仓库创建与部署配置" class="headerlink" title="步骤七：GitHub仓库创建与部署配置"></a>步骤七：GitHub仓库创建与部署配置</h3><ol>
-<li>登录GitHub，新建公开仓库（用户名.github.io）。</li>
-</ol>
-<p><img src="/images/experiment4/2026-07-09-18-20-42.png" alt="GitHub创建仓库"></p>
-<ol start="2">
-<li>在本地项目安装Git部署插件。</li>
-<li>修改_config.yml文件末尾deploy配置，填入GitHub仓库远程地址。</li>
-<li>执行一键部署命令：hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy</li>
-</ol>
-<h3 id="步骤八：访问线上博客站点"><a href="#步骤八：访问线上博客站点" class="headerlink" title="步骤八：访问线上博客站点"></a>步骤八：访问线上博客站点</h3><p>部署完成后，浏览器打开<a target="_blank" rel="noopener" href="https://yj-zj.github.io,验证线上博客文章、主题样式与本地完全一致./">https://yj-zj.github.io，验证线上博客文章、主题样式与本地完全一致。</a></p>
-<p><img src="/images/experiment4/2026-07-09-18-44-02.png" alt="线上站点"></p>
-<h2 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h2><h3 id="成果说明"><a href="#成果说明" class="headerlink" title="成果说明"></a>成果说明</h3><ol>
-<li>完整搭建Hexo静态博客开发环境，所有依赖工具正常识别调用；</li>
-<li>完成博客项目初始化，熟练掌握Hexo全套命令；</li>
-<li>成功替换NexT第三方主题，实现博客页面美化；</li>
-<li>完成GitHub仓库创建、部署插件配置，将静态站点免费部署至GitHub Pages。</li>
-</ol>
-<h2 id="五、知识总结"><a href="#五、知识总结" class="headerlink" title="五、知识总结"></a>五、知识总结</h2><h3 id="静态站点-vs-动态站点对比"><a href="#静态站点-vs-动态站点对比" class="headerlink" title="静态站点 vs 动态站点对比"></a>静态站点 vs 动态站点对比</h3><table>
+<h2 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h2><h3 id="4-1-连通性测试汇总表"><a href="#4-1-连通性测试汇总表" class="headerlink" title="4.1 连通性测试汇总表"></a>4.1 连通性测试汇总表</h3><table>
 <thead>
 <tr>
-<th>对比维度</th>
-<th>静态站点（Hexo&#x2F;Hugo）</th>
-<th>动态站点（WordPress）</th>
+<th>测试项</th>
+<th>源设备(IP)</th>
+<th>目标设备(IP)</th>
+<th>测试结果</th>
+<th>丢包率</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>页面生成时机</td>
-<td>本地提前预编译HTML</td>
-<td>用户访问时后端实时渲染</td>
-</tr>
-<tr>
-<td>数据库</td>
-<td>无需数据库</td>
-<td>必须搭配数据库</td>
-</tr>
-<tr>
-<td>访问速度</td>
-<td>极快，纯静态文件</td>
-<td>较慢，需执行后端查询</td>
-</tr>
-<tr>
-<td>安全风险</td>
-<td>无后端攻击面，安全性高</td>
-<td>存在后台、数据库漏洞风险</td>
-</tr>
-<tr>
-<td>部署方式</td>
-<td>仅上传静态文件</td>
-<td>搭建服务器+数据库环境</td>
-</tr>
-<tr>
-<td>适用场景</td>
-<td>个人博客、技术文档站</td>
-<td>电商、论坛、后台管理系统</td>
+<td>ping连通测试</td>
+<td>PC0(192.168.1.1)</td>
+<td>PC1(192.168.1.2)</td>
+<td>✅ 成功</td>
+<td>0%</td>
 </tr>
 </tbody></table>
-<h3 id="Hexo核心常用命令"><a href="#Hexo核心常用命令" class="headerlink" title="Hexo核心常用命令"></a>Hexo核心常用命令</h3><table>
+<h3 id="4-2-成果说明"><a href="#4-2-成果说明" class="headerlink" title="4.2 成果说明"></a>4.2 成果说明</h3><ol>
+<li>成功完成Cisco Packet Tracer安装、账号登录，软件功能可正常使用；</li>
+<li>完成基础局域网拓扑搭建，设备线缆连接无报错；</li>
+<li>两台终端IP配置在同一网段，双向ping测试全部收到回复，网络通信正常；</li>
+<li>仿真模式下可完整观测数据包转发过程，理解二层交换机数据转发逻辑。</li>
+</ol>
+<h2 id="五、知识总结"><a href="#五、知识总结" class="headerlink" title="五、知识总结"></a>五、知识总结</h2><h3 id="三种主流网络软件架构对比"><a href="#三种主流网络软件架构对比" class="headerlink" title="三种主流网络软件架构对比"></a>三种主流网络软件架构对比</h3><table>
 <thead>
 <tr>
-<th>命令</th>
-<th>简写</th>
-<th>功能说明</th>
+<th>架构类型</th>
+<th>全称</th>
+<th>核心特征</th>
+<th>典型例子</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>hexo init 项目名</td>
-<td>-</td>
-<td>初始化博客项目模板</td>
+<td>C&#x2F;S架构</td>
+<td>客户端&#x2F;服务器</td>
+<td>需要安装专用客户端，两端分工协作</td>
+<td>网络游戏、微信、Packet Tracer</td>
 </tr>
 <tr>
-<td>hexo server</td>
-<td>hexo s</td>
-<td>启动本地预览服务</td>
+<td>B&#x2F;S架构</td>
+<td>浏览器&#x2F;服务器</td>
+<td>仅浏览器即可访问，业务逻辑在服务端</td>
+<td>淘宝、知乎、在线文档</td>
 </tr>
 <tr>
-<td>hexo new “标题”</td>
-<td>-</td>
-<td>创建Markdown博客文章</td>
-</tr>
-<tr>
-<td>hexo generate</td>
-<td>hexo g</td>
-<td>编译生成静态HTML文件</td>
-</tr>
-<tr>
-<td>hexo clean</td>
-<td>-</td>
-<td>清理缓存与旧静态文件</td>
-</tr>
-<tr>
-<td>hexo deploy</td>
-<td>hexo d</td>
-<td>推送站点至远程仓库</td>
+<td>P2P架构</td>
+<td>点对点</td>
+<td>每个节点同时充当客户端与服务器</td>
+<td>BT下载、局域网传输工具</td>
 </tr>
 </tbody></table>
-<h2 id="六、出现问题"><a href="#六、出现问题" class="headerlink" title="六、出现问题"></a>六、出现问题</h2><ol>
-<li><strong>问题1</strong>：修改theme配置后页面样式无变化 → 执行hexo clean清理缓存再重新生成。</li>
-<li><strong>问题2</strong>：部署完成博客样式丢失 → 修改_config.yml中url字段，填写完整GitHub Pages线上地址。</li>
-</ol>
-<h2 id="七、心得体会"><a href="#七、心得体会" class="headerlink" title="七、心得体会"></a>七、心得体会</h2><h3 id="技术层面"><a href="#技术层面" class="headerlink" title="技术层面"></a>技术层面</h3><p>本次实验体验了静态Web站点从本地搭建到公网部署的全流程，掌握Hexo运维命令，学会使用Git配合GitHub完成静态网站免费托管。</p>
-<h3 id="思政层面"><a href="#思政层面" class="headerlink" title="思政层面"></a>思政层面</h3><p>Hexo、GitHub、Git均为全球开源免费工具，依靠开源社区协作迭代。国内Gitee、Coding等平台正在快速追赶。我们既要熟练掌握主流开发工具，也要持续关注国产平台发展。</p>
+<h2 id="六、心得体会"><a href="#六、心得体会" class="headerlink" title="六、心得体会"></a>六、心得体会</h2><h3 id="技术层面"><a href="#技术层面" class="headerlink" title="技术层面"></a>技术层面</h3><p>简单了解了Cisco Packet Tracer这一工具，并且感受了小型局域网的搭建，还通过了仿真测试直观看到了数据包的传输过程。</p>
+<h3 id="思政层面"><a href="#思政层面" class="headerlink" title="思政层面"></a>思政层面</h3><p>目前国内在网络仿真工具方面存在欠缺，配套的工具较少。我们需要持续学习，助力我们国家完善网络教学生态，让信息技术自主可控。</p>
 
       
     </div>

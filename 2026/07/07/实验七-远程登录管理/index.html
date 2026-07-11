@@ -23,7 +23,7 @@
   <meta name="description" content="一、实验目的 安装和配置OpenSSH服务，实现多机远程登录管理； 配置SSH密钥认证，实现免密登录； 掌握使用SCP和rsync进行跨机文件传输与同步。  二、实验环境 操作系统：Ubuntu Server 22.04 LTS 网络：所有虚拟机处于同一Host-Only网络（192.168.56.0&#x2F;24） 前置条件：已完成实验五，拥有至少两台Ubuntu虚拟机  三、实验过程步骤一：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="实验七 远程登录管理">
-<meta property="og:url" content="https://yj-zj.github.io/2026/07/10/%E5%AE%9E%E9%AA%8C%E4%B8%83-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:url" content="https://yj-zj.github.io/2026/07/07/%E5%AE%9E%E9%AA%8C%E4%B8%83-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%AE%A1%E7%90%86/index.html">
 <meta property="og:site_name" content="next">
 <meta property="og:description" content="一、实验目的 安装和配置OpenSSH服务，实现多机远程登录管理； 配置SSH密钥认证，实现免密登录； 掌握使用SCP和rsync进行跨机文件传输与同步。  二、实验环境 操作系统：Ubuntu Server 22.04 LTS 网络：所有虚拟机处于同一Host-Only网络（192.168.56.0&#x2F;24） 前置条件：已完成实验五，拥有至少两台Ubuntu虚拟机  三、实验过程步骤一：">
 <meta property="og:locale" content="en_US">
@@ -38,8 +38,8 @@
 <meta property="og:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-16-40-59.png">
 <meta property="og:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-16-49-05.png">
 <meta property="og:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-16-53-10.png">
-<meta property="article:published_time" content="2026-07-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-07-11T17:16:06.929Z">
+<meta property="article:published_time" content="2026-07-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-11T17:19:04.776Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="SSH">
 <meta property="article:tag" content="远程登录">
@@ -47,7 +47,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://yj-zj.github.io/images/experiment7/2026-07-10-15-08-50.png">
 
-<link rel="canonical" href="https://yj-zj.github.io/2026/07/10/%E5%AE%9E%E9%AA%8C%E4%B8%83-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%AE%A1%E7%90%86/">
+<link rel="canonical" href="https://yj-zj.github.io/2026/07/07/%E5%AE%9E%E9%AA%8C%E4%B8%83-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%AE%A1%E7%90%86/">
 
 
 <script id="page-configurations">
@@ -165,7 +165,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/10/%E5%AE%9E%E9%AA%8C%E4%B8%83-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%AE%A1%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="https://yj-zj.github.io/2026/07/07/%E5%AE%9E%E9%AA%8C%E4%B8%83-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%AE%A1%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -188,14 +188,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2026-07-10 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-10T00:00:00+08:00">2026-07-10</time>
+              <time title="Created: 2026-07-07 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-07T00:00:00+08:00">2026-07-07</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-07-12 01:16:06" itemprop="dateModified" datetime="2026-07-12T01:16:06+08:00">2026-07-12</time>
+                <time title="Modified: 2026-07-12 01:19:04" itemprop="dateModified" datetime="2026-07-12T01:19:04+08:00">2026-07-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -310,10 +310,13 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2026/07/10/%E5%AE%9E%E9%AA%8C%E5%85%AB-%E8%BD%AF%E4%BB%B6%E7%BB%BC%E5%90%88%E9%83%A8%E7%BD%B2/" rel="prev" title="实验八 软件综合部署">
-      <i class="fa fa-chevron-left"></i> 实验八 软件综合部署
+    <a href="/2026/07/06/%E5%AE%9E%E9%AA%8C%E5%85%AD-Linux%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="prev" title="实验六 Linux环境配置">
+      <i class="fa fa-chevron-left"></i> 实验六 Linux环境配置
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2026/07/08/%E5%AE%9E%E9%AA%8C%E5%85%AB-%E8%BD%AF%E4%BB%B6%E7%BB%BC%E5%90%88%E9%83%A8%E7%BD%B2/" rel="next" title="实验八 软件综合部署">
+      实验八 软件综合部署 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
